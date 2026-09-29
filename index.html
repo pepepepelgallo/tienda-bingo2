@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tienda Bingo</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.5;
+    padding-bottom: 40px;
+  }
+
+  .contenedor {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px 16px;
+  }
+
+  nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-bar {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .hero-section {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 48px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .hero-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: #e0e7ff;
+    max-width: 600px;
+    margin: 0 auto 24px auto;
+  }
+
+  .hero-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    max-width: 650px;
+    margin: 0 auto 28px auto;
+  }
+
+  .hero-product-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-product-card img {
+    width: 100%;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 6px;
+    margin-bottom: 6px;
+  }
+
+  .hero-product-card p {
+    color: #0f172a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero-product-card span {
+    color: #2563eb;
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: block;
+  }
+
+  .hero-features {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    font-size: 0.85rem;
+    color: #c7d2fe;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 16px;
+  }
+
+  .hero-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #334155;
+    cursor: pointer;
+  }
+
+  button.btn-primary {
+    background-color: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+  }
+
+  button.btn-hero {
+    background-color: #ffffff;
+    color: #1e3a8a;
+    border: none;
+    font-weight: 700;
+    padding: 14px 28px;
+    font-size: 1rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s, transform 0.1s;
+  }
+
+  button.btn-hero:hover {
+    background-color: #f8fafc;
+    transform: translateY(-2px);
+  }
+
+  button.btn-danger {
+    background-color: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+  }
+
+  .caja {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .producto-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mini {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+    flex-shrink: 0;
+  }
+
+  .producto-info {
+    flex: 1;
+  }
+
+  .producto-nombre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .producto-meta {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+
+  .producto-precio {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .detalle {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .foto-seccion {
+    width: 280px;
+    max-width: 100%;
+    align-self: flex-start;
+  }
+
+  .foto-principal {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+    margin-bottom: 8px;
+  }
+
+  .cuadritos-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .cuadrito {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #ffffff;
+  }
+
+  .datos {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .datos h2 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .datos .precio-tag {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+  }
+
+  .datos .categoria-tag {
+    display: inline-block;
+    background-color: #f1f5f9;
+    color: #475569;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .datos .descripcion {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 16px;
+  }
+
+  .filtros {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 20px 0;
+  }
+
+  .badge-count {
+    background-color: #ef4444;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+  }
+
+  .notificacion-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #10b981;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  .notificacion-toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.25rem; margin-bottom: 12px; }
+  .subtitulo { color: #64748b; font-size: 0.9rem; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-bar">
+    <div style="display:flex; gap:12px; align-items:center;">
+      <button onclick="irA('?tienda=bingo&vista=hero')" style="font-weight: 700; font-size: 1rem;">Tienda Bingo</button>
+      <button onclick="irA('?tienda=bingo&vista=hero')">Inicio</button>
+      <button onclick="irA('?tienda=bingo')">Catálogo</button>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn-primary" onclick="irA('?tienda=bingo&vista=carrito')">
+        Carrito <span id="contador" class="badge-count">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="contenedor">
+  <div id="contenido"></div>
+</div>
+
+<div id="notificacion" class="notificacion-toast">
+  <span>✓</span> Producto agregado al carrito
+</div>
+
+<script>
+var categorias = ["Computación", "componente", "ropa", "Hogar"];
+
+var productos = [
+  { id: 1,  nombre: "AMD PROCESADOR RYZEN 7 9800X3D AM5 Zen 5 5.2GHZ", categoria: "componente",    precio: "8,999.00", imagenes: ["https://m.media-amazon.com/images/I/71NMFO0iUhL._AC_SL1500_.jpg"] },
+  { id: 2,  nombre: "Libin Pantalones de Golf para Hombre", categoria: "ropa",    precio: "799.99", imagenes: ["https://m.media-amazon.com/images/I/61u0tNWDkVL._AC_SY606_.jpg", "https://m.media-amazon.com/images/I/71QQtvG5MaL._AC_SY606_.jpg"] },
+  { id: 3,  nombre: "Creative Boys Playera IncaCloud para Hombre",      categoria: "ropa",     precio: 899, imagenes: ["https://m.media-amazon.com/images/I/51jVd1DJbwL._AC_SY606_.jpg", "https://m.media-amazon.com/images/I/51Zg321n+8L._AC_SY606_.jpg"] },
+  { id: 4,  nombre: "YSENTO - Conjunto de calentar para hombre 2 piezas trajes de correr para calenta", categoria: "ropa", precio: 779, imagenes: ["https://m.media-amazon.com/images/I/71wl4k21iwL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/61L0HwuoTfL._AC_SX569_.jpg"] },
+  { id: 5,  nombre: "ATTACK SHARK R85 HE Teclado Gaming 75% con Cable Magnético, 8KHz Frecuencia de Sondeo, Activación Rápida 0.005mm RT, Escaneo 256K, Hot-Swap Personalizable, para PC/Win/Mac, Degradado Negro", categoria: "componente", precio: 1498.00, imagenes: ["https://m.media-amazon.com/images/I/71WX06hKsxL._AC_SL1500_.jpg", "https://m.media-amazon.com/images/I/713JoviqZeL._AC_SL1500_.jpg"] },
+  { id: 6,  nombre: "Razer Viper V3 HyperSpeed Ratón Inalámbrico para Esports: Diseño Ligero De 82g - Sensor Óptico De 30K dpi - hasta 280 Horas De Batería - Inalámbrico HyperSpeed - Interruptores Mecánicos Gen-2 - Negro", categoria: "componente", precio: 1335.19, imagenes: ["https://m.media-amazon.com/images/I/61LI6E0sJwL._SL1500_.jpg"] },
+  { id: 7,  nombre: "ATTACK SHARK R85 HE Teclado mecánico RGB para juegos con cable 75% de disparo rápido con caja de luz personalizada, tasa de sondeo de 8 KHz, precisión RT de 0,005 mm, latencia de 0,08 MS, efecto salón", categoria: "componente", precio: 1234.05, imagenes: ["https://m.media-amazon.com/images/I/71ZDBOjI-FL._AC_SL1500_.jpg", "https://m.media-amazon.com/images/I/61420YH9hHL._AC_SL1500_.jpg"] },
+  { id: 8,  nombre: "BocinSteelSeries Apex Pro TKL Gen 3 OmniPoint 3.0 Interruptores hipermagnéticos — Actuación Ajustable — Disparador rápido — Preajustes listos para el Juego — Modo de protección — Tap/SOCD — OLED — RGB —", categoria: "componente", precio: 3988.34, imagenes: ["https://m.media-amazon.com/images/I/713vLZcw3FL._AC_SL1500_.jpg"] },
+  { id: 9,  nombre: "Amazon Basics Monitor para Computadora Amazon Basics de 23,8 Pulgadas, 1080P, 120Hz, HDMI, DP, VGA, Compatible con VESA para Oficina, Hogar", categoria: "Computación", precio: 2354.17, imagenes: ["https://m.media-amazon.com/images/I/81DGMcSXXbL._AC_SL1500_.jpg"] },
+  { id: 10, nombre: "KTC Monitor Gaming de 27 Pulgadas, 1440P QHD, Fast IPS, 210Hz, Altavoces Integrados, Antireflejo, 130% sRGB, 1ms (MPRT), Adaptive Sync, Ajuste Ergonómico, Montaje VESA, 27M1", categoria: "Computación", precio: 3599.99, imagenes: ["https://m.media-amazon.com/images/I/71mRwYEn9DL._AC_SL1500_.jpg"] },
+  { id: 11, nombre: "XIAOMI Monitor A24i 2026 23.8'' 144 Hz Panel Fast IPS para Oficina y Juegos", categoria: "Computación", precio: 1698.00, imagenes: ["https://m.media-amazon.com/images/I/61k5tpO56xL._AC_SL1500_.jpg"] },
+  { id: 12, nombre: "Amazon Basics cubo de basura rectangular pequeño de plástico para baño, con pedal de acero, color negro, 6 litros", categoria: "Hogar", precio: 460.20, imagenes: ["https://m.media-amazon.com/images/I/616og2punVL._AC_SL1500_.jpg"] },
+  { id: 13, nombre: "HONGHCL Tabla para Picar Acero Inoxidable - 3pcs Tablas para Picar Cocina de Antiadherente y Antibacteriana con 3 Ganchos para Hogar", categoria: "Hogar", precio: 289.00, imagenes: ["https://m.media-amazon.com/images/I/71SFLWp4f6L._AC_SL1500_.jpg"] },
+  { id: 14, nombre: "Organizador de Cubiertos,Expandible Organizador de Cubiertos para Cajon,Organizador de Cajones de Cocina,Bandeja para Cubierto,8 Divisores Plástico para Cosmético Papelería de Estudio Tenedor", categoria: "Hogar", precio: 283.10, imagenes: ["https://m.media-amazon.com/images/I/71seHc3ne5L._AC_SL1500_.jpg"] },
+  { id: 15, nombre: "Perchero para Ropa Metálico con Ruedas de Doble Nivel | Rack para Ropa | Perchero DORADO Reforzado | Mueble para Colgar Ropa con Alta Capacidad y Diseño Premium para Hogar o Tienda", categoria: "Hogar", precio: 1445.00, imagenes: ["https://m.media-amazon.com/images/I/81oGvBa6BdL._AC_SL1500_.jpg"] },
+  { id: 16, nombre: "Airwit Ventilador de Techo 41, Reversible, 5 Aspas", categoria: "Hogar", precio: 819.00, imagenes: ["https://m.media-amazon.com/images/I/51AGmYboD7L._AC_SL1254_.jpg", "https://m.media-amazon.com/images/I/51B0jLHlIEL._AC_SL1254_.jpg"] },
+  { id: 17, nombre: "ANNA TOSANI Aspiradora de Mano, 5000PA Aspiradora Inalámbrico Portatil Potente Aspirador de Coche Seco y Húmedo120w USB Carga Rapida para Coches,Hogar, Oficina, Sofas, Pelos Mascotas", categoria: "Hogar", precio: 351.10, imagenes: ["https://m.media-amazon.com/images/I/71+2eVi1v+S._AC_SL1500_.jpg"] },
+  { id: 18, nombre: "Puma - Paquete de 4 Camisetas de algodón de Manga Corta para Hombre", categoria: "ropa", precio: 460.53, imagenes: ["https://m.media-amazon.com/images/I/61qDWSfQYTL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/51Xf3M8xQlL._AC_SX569_.jpg"] },
+  { id: 19, nombre: "Bozanly - Suéter de punto a rayas para mujer", categoria: "ropa", precio: 196.19, imagenes: ["https://m.media-amazon.com/images/I/71sCgdHZaqL._AC_SX466_.jpg", "https://m.media-amazon.com/images/I/81vqMkltp1L._AC_SX466_.jpg"] },
+  { id: 20, nombre: "Under Armour Deportivo Polo de Golf para Hombre", categoria: "ropa", precio: 809.08, imagenes: ["https://m.media-amazon.com/images/I/61RCVEMQGqL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/71YIxvoSDBL._AC_SX569_.jpg"] },
+  { id: 21, nombre: "ATTACK SHARK R5 Ultra - Ratón inalámbrico gaming 8K", categoria: "componente", precio: 1658, imagenes: ["https://m.media-amazon.com/images/I/71MLDMHjn5L._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/71PUVqguHbL._AC_SL1500_.jpg"], descripcion: "Fibra de carbono, 42000 dpi, sensor PAW3950 MAX, solo 39 g. Conexión por cable, Bluetooth y 2.4GHz. Programable para PC/Mac." },
+  { id: 22, nombre: "Amazon Essentials - Camiseta de cuello redondo para hombre, paquete de 6", categoria: "ropa", precio: 450.00, imagenes: ["https://m.media-amazon.com/images/I/81rknfd6CZL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/51v5brDQozS._AC_SX466_.jpg"] },
+  { id: 23, nombre: "ADIDAS Conjunto Deportivo Chamarra Mujer Fútbol Negro L", categoria: "ropa", precio: 329.95, imagenes: ["https://m.media-amazon.com/images/I/61mVwid4-EL._AC_SL1500_.jpg"] },
+  { id: 24, nombre: "Gildan Camiseta interior cuello-V para Hombres", categoria: "ropa", precio: 329.95, imagenes: ["https://m.media-amazon.com/images/I/61P+otNOSvL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/71kNzvBv6KL._AC_SX569_.jpg"] },
+  { id: 25, nombre: "Conjunto de Camiseta de Compresión y Pantalones para Hombre, Manga Larga Secado Rápido Gimnasio y Yoga Ropa Deportiva", categoria: "ropa", precio: 360.0, imagenes: ["https://m.media-amazon.com/images/I/61Nz78cwQXL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/51RYRaVrPkL._AC_SX569_.jpg"] },
+  { id: 26, nombre: "LAULY Pantalón Impermeable Y Cortavientos,Pantalones de Bolsillo para Hombres,Pantalones de Trabajo Impermeable Hombre", categoria: "ropa", precio: 365.00, imagenes: ["https://m.media-amazon.com/images/I/51FyXVQ+9YL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/51Asg0pjgsL._AC_SX569_.jpg"] },
+  { id: 27, nombre: "NOVAKA Limpiador de Vapor de Mano Portátil con 4 Boquillas, 2500W Limpiador Vapor Presurizada de Alta Temperatura Multifuncional para Quitar Manchas para Coche, Limpieza Cocina, Baño, Rojo", categoria: "Hogar", precio: 659.00, imagenes: ["https://m.media-amazon.com/images/I/61SehokA9iL._AC_SL1500_.jpg", "https://m.media-amazon.com/images/I/613fAn8ss1L._AC_SL1500_.jpg"] },
+  { id: 28, nombre: "GOHOMKIC 12L Cubo de Basura Automático Con Sensor", categoria: "Hogar", precio: 512.15, imagenes: ["https://m.media-amazon.com/images/I/61AgU7Ac4PL._SL1500_.jpg", "https://m.media-amazon.com/images/I/618LKaIY44L._SL1500_.jpg"] },
+  { id: 29, nombre: "Bote de Basura con Tapa Roscable, 35 Litros, Ideal para Hogar u Oficina", categoria: "Hogar", precio: 250.00, imagenes: ["https://m.media-amazon.com/images/I/71nSbfFjmaL._SL1500_.jpg"] },
+  { id: 30, nombre: "CHKOSDA Reloj de pared digital, reloj digital LED de gran tamaño con atenuador automático, temporizador de cuenta regresiva enorme con control remoto, visualización LED de 27 pulgadas de ancho, 6", categoria: "Hogar", precio: 2869.09, imagenes: ["https://m.media-amazon.com/images/I/51v-8WL2voL._AC_SL1500_.jpg", "https://m.media-amazon.com/images/I/511MjJnG6ML._AC_SL1500_.jpg"] },
+  { id: 31, nombre: "CRUA 24.5 Pulgadas Monitor Gamer 300Hz FHD(1920x1080P) Altavoces Integrados", categoria: "Computación", precio: 1999.98, imagenes: ["https://m.media-amazon.com/images/I/815E2+kKSqL._AC_SL1500_.jpg"] },
+  { id: 32, nombre: "Monitor Full HD Estándar - Pantalla Ergonómica de Trabajo", categoria: "Computación", precio: 677.00, imagenes: ["https://m.media-amazon.com/images/I/41V6P-tFfeL._AC_SL1000_.jpg"] },
+  { id: 33, nombre: "LG Monitor Gaming Curvo Ultragear 34'' (3440 x 1440) 160 Hz WQHD, 34G600A-B.AWM, DisplayPort: HDMI, AMD FreeSync™ Premium", categoria: "Computación", precio: 6535.00, imagenes: ["https://m.media-amazon.com/images/I/612qSytiqvL._AC_SL1500_.jpg"] },
+  { id: 34, nombre: "LG Monitor Full HD de 21,5 100 Hz, sRGB 99%, HDR 10, MBR de 1 ms", categoria: "Computación", precio: 1299.00, imagenes: ["https://m.media-amazon.com/images/I/716dRmcxwwL._AC_SL1500_.jpg"] },
+  { id: 35, nombre: "MSI Monitor Gamer 24 mag 244F / Rapid IPS/ 1920 x 1080 (FHD)/ Adaptive Sync/HDR Ready/ 200Hz/ 0.5ms (GTG", categoria: "Computación", precio: 2219.00, imagenes: ["https://m.media-amazon.com/images/I/51QYAhDqwwL._AC_SL1024_.jpg"] },
+  { id: 36, nombre: "LG Monitor 27 60Hz Ultra HD IPS (Presición de Color), 27US500-W (3840 x 2160), Tiempo de Respuesta de 5ms (GtG), Contrast Ratio de 1000:1", categoria: "Computación", precio: 4060.00, imagenes: ["https://m.media-amazon.com/images/I/81CzYIq3-3L._AC_SL1500_.jpg"] },
+  { id: 37, nombre: "BenQ Monitor GW2790TC de 27 1080p FHD 144Hz IPS con Tecnología Eye-Care, USB-C, Optimizador Visual, Flicker-Free, Low Blue Light, Bisel Ultrafino, Certificación TÜV, Eye-CareU, Diseño Ergonómico", categoria: "Computación", precio: 3685.03, imagenes: ["https://m.media-amazon.com/images/I/71irGS1jMFL._AC_SL1500_.jpg"] },
+  { id: 38, nombre: "KTC Monitor Curvo Ultrapanorámico Gaming de 34 Pulgadas 21:9, 3440x1440P 180Hz 1ms, Panel Curvo 1500R, 2 x HDMI 2.0 & 2 x DP1.4, Ajuste de Altura/Inclinación/Giro/Pivote, H34S18S", categoria: "Computación", precio: 4749.05, imagenes: ["https://m.media-amazon.com/images/I/71Vrgq4DopL._AC_SL1500_.jpg"] },
+  { id: 39, nombre: "CRUA 34 Pulgadas UltraWide 21:9 Gamer Monitor UWQHD(3440x1440) 165Hz", categoria: "Computación", precio: 4599.98, imagenes: ["https://m.media-amazon.com/images/I/715ZIX1ogsL._AC_SL1500_.jpg"] },
+  { id: 40, nombre: "KTC Monitor Curvo Gaming de 24 Pulgadas 240Hz 1080P, Panel Curvado 1500R 1ms, Relación de Contraste 3000:1, Adaptive Sync, HDR10, 2 x HDMI 2.0 & 1 x DP1.4, Compatible con VESA, H24S17P", categoria: "Computación", precio: 3199.99, imagenes: ["https://m.media-amazon.com/images/I/71blp+tyqwL._AC_SL1500_.jpg"] },
+  { id: 41, nombre: "ASUS TUF Gaming VG27WQ3B Monitor 27 Pulgadas QHD 180Hz Curvo para PC Gamer", categoria: "Computación", precio: 3999.00, imagenes: ["https://m.media-amazon.com/images/I/71NBjjs1DpL._AC_SL1500_.jpg"] },
+  { id: 42, nombre: "Alienware 27 Monitor para Juegos - AW2725DM - visualización QHD de 27 Pulgadas 180Hz 1 ms, IPS, NVIDIA G-Sync, AMD Freesync, VESA AdaptiveSync.", categoria: "Computación", precio: 5999.00, imagenes: ["https://m.media-amazon.com/images/I/71-0nIz4DBL._AC_SL1500_.jpg"] },
+  { id: 43, nombre: "Apple 2026 MacBook Pro (de 16 Pulgadas, Chip M5 Pro de Apple con CPU de 18 núcleos y GPU de 20 núcleos, 24GB Memoria unificada, 1 TB) - Negro Espacial", categoria: "Computación", precio: 67999.00, imagenes: ["https://m.media-amazon.com/images/I/41PLFUsQZEL._AC_SL1000_.jpg", "https://m.media-amazon.com/images/I/41iXTWoQ68L._AC_SL1000_.jpg"] },
+  { id: 44, nombre: "Monitor Gamer 22 Pulgadas 100 hz Pantalla Full HD Portátil IPS Pc Hdmi Led con Altavoz", categoria: "Computación", precio: 1557.00, imagenes: ["https://m.media-amazon.com/images/I/71xK55TePwL._AC_SL1500_.jpg"] },
+  { id: 45, nombre: "BenQ - Monitor LED 21.5” Full HD 1080p ( GW2283 ) Eye-Care, Panel IPS, Tecnologías Brightness Intelligence y Flicker-free, Bisel Ultra Delgado, Sistema de Organización de Cables, HDMI x 2", categoria: "Computación", precio: 2423.73, imagenes: ["https://m.media-amazon.com/images/I/61unntHqDsL._AC_SL1200_.jpg"] },
+  { id: 46, nombre: "XIAOMI Curved Gaming Monitor G34WQi | 34 Panel VA WQHD (3440 * 1440) HDR 10 180Hz | Amplia Gama de Colores | Luz Led RGB Trasera | AMD Freesync Premium | 1ms MPRT | Altura Ajustable", categoria: "Computación", precio: 6398.97, imagenes: ["https://m.media-amazon.com/images/I/61yIdUOHV+L._AC_SL1500_.jpg"] },
+  { id: 47, nombre: "BenQ Monitor Ew270q 27 IPS 2k Hdmi 200hz 90% P3 Bocina 5wx2", categoria: "Computación", precio: 4995.72, imagenes: ["https://m.media-amazon.com/images/I/81kMB7UjTgL._AC_SL1500_.jpg"] },
+  { id: 48, nombre: "ASUS Prime Radeon RX 9070 XT Tarjeta de Video para Gaming 4K de Alto Nivel", categoria: "componente", precio: 14989.00, imagenes: ["https://m.media-amazon.com/images/I/81huTBuLV+L._AC_SL1500_.jpg"] },
+  { id: 49, nombre: "ADATA XPG GAMMIX S70 Blade, Unidad Estado Sólido SSD PCIe Gen4x4 M.2 2280, Rendimiento Lectura/Escritura 7400/6800 MB/s, 1TB (AGAMMIXS70B-1T-CS)", categoria: "componente", precio: 3663.00, imagenes: ["https://m.media-amazon.com/images/I/61qeRmGZgtL._AC_SL1500_.jpg"] },
+  { id: 50, nombre: "AMD - Procesador RYZEN 7 5800X, 3.8GHz, 8 Núcleos - Socket AM4", categoria: "componente", precio: 4808.94, imagenes: ["https://m.media-amazon.com/images/I/61IIbwz-+ML._AC_SL1500_.jpg"] }
+];
+
+for (var k = 0; k < productos.length; k++) {
+  if (!productos[k].descripcion) {
+    productos[k].descripcion = "Producto de alta calidad, ideal para uso diario. Incluye garantía del fabricante.";
+  }
+}
+
+var carrito = [];
+var contenido = document.getElementById("contenido");
+var temporizadorNotificacion = null;
+
+function irA(url) {
+  var urlFinal = url;
+  if (!urlFinal.includes('tienda=bingo')) {
+    urlFinal += (urlFinal.includes('?') ? '&' : '?') + 'tienda=bingo';
+  }
+  history.pushState({}, "", urlFinal);
+  mostrarVista();
+}
+
+function mostrarVista() {
+  var params = new URLSearchParams(location.search);
+  var producto = params.get("producto");
+  var vista = params.get("vista");
+  var categoria = params.get("categoria");
+
+  document.getElementById("contador").innerHTML = carrito.length;
+
+  if (producto) {
+    mostrarProducto(producto);
+  } else if (vista == "carrito") {
+    mostrarCarrito();
+  } else if (vista == "hero") {
+    mostrarHeroApartado();
+  } else {
+    mostrarInicio(categoria);
+  }
+}
+
+function mostrarHeroApartado() {
+  var destacados = [productos[0], productos[4], productos[9], productos[42]];
+
+  var html = "";
+  html += "<div class='hero-section'>";
+  html += "<span class='hero-badge'>La mejor tienda en línea #1</span>";
+  html += "<h1 class='hero-title'>Ventas Bingo</h1>";
+  html += "<p class='hero-subtitle'>La mejor página para comprar lo último en tecnología, componentes y moda al mejor precio garantizado.</p>";
+
+  html += "<div class='hero-products-grid'>";
+  for (var i = 0; i < destacados.length; i++) {
+    var item = destacados[i];
+    html += "<div class='hero-product-card' onclick=\"irA('?producto=" + item.id + "')\">";
+    html += "<img src='" + item.imagenes[0] + "' alt='" + item.nombre + "'>";
+    html += "<p>" + item.nombre + "</p>";
+    html += "<span>$" + item.precio + "</span>";
+    html += "</div>";
+  }
+  html += "</div>";
+
+  html += "<button class='btn-hero' onclick=\"irA('?tienda=bingo')\">EXPLORAR CATÁLOGO COMPLETO</button>";
+
+  html += "<div class='hero-features'>";
+  html += "<div class='hero-feature-item'><span>🚀</span> Envíos Rápidos y Seguros</div>";
+  html += "<div class='hero-feature-item'><span>🛡️</span> Garantía Directa</div>";
+  html += "<div class='hero-feature-item'><span>💳</span> Pagos 100% Protegidos</div>";
+  html += "</div>";
+
+  html += "</div>";
+
+  contenido.innerHTML = html;
+}
+
+function mostrarInicio(categoria) {
+  var html = "";
+
+  html += "<h1>Catálogo de Productos</h1>";
+  html += "<p class='subtitulo'>Explora nuestras categorías y encuentra lo que necesitas.</p>";
+
+  html += "<div class='filtros'>";
+  html += "<button onclick=\"irA('?tienda=bingo')\">Todos</button>";
+  for (var i = 0; i < categorias.length; i++) {
+    html += "<button onclick=\"irA('?categoria=" + categorias[i] + "')\">" + categorias[i] + "</button>";
+  }
+  html += "</div>";
+
+  for (var j = 0; j < productos.length; j++) {
+    var p = productos[j];
+    if (categoria == null || categoria == p.categoria) {
+      html += "<div class='caja'>";
+      html += "<div class='producto-item'>";
+      if (p.imagenes && p.imagenes[0]) {
+        html += "<img class='mini' src='" + p.imagenes[0] + "' alt='Producto'>";
+      }
+      html += "<div class='producto-info'>";
+      html += "<div class='producto-nombre'>" + p.nombre + "</div>";
+      html += "<div class='producto-meta'>" + p.categoria + " &bull; <span class='producto-precio'>$" + p.precio + "</span></div>";
+      html += "<button onclick=\"irA('?producto=" + p.id + "')\">Ver producto</button>";
+      html += "</div>";
+      html += "</div>";
+      html += "</div>";
+    }
+  }
+
+  contenido.innerHTML = html;
+}
+
+function mostrarProducto(id) {
+  var idNum = parseInt(id, 10);
+  var p = productos.find(function(item) { return item.id === idNum; }) || productos[0];
+
+  var html = "<button style='margin-bottom: 16px;' onclick=\"irA('?tienda=bingo')\">&larr; Volver a productos</button>";
+  html += "<div class='caja detalle'>";
+
+  if (p.imagenes) {
+    html += "<div class='foto-seccion'>";
+    html += "<img id='fotoGrande' class='foto-principal' src='" + p.imagenes[0] + "'>";
+    html += "<div class='cuadritos-container'>";
+    for (var n = 0; n < p.imagenes.length; n++) {
+      html += "<img class='cuadrito' src='" + p.imagenes[n] + "' onclick=\"cambiarFoto('" + p.imagenes[n] + "')\">";
+    }
+    html += "</div></div>";
+  }
+
+  html += "<div class='datos'>";
+  html += "<span class='categoria-tag'>" + p.categoria + "</span>";
+  html += "<h2>" + p.nombre + "</h2>";
+  html += "<div class='precio-tag'>$" + p.precio + "</div>";
+  html += "<p class='descripcion'>" + p.descripcion + "</p>";
+
+  html += "<div style='display:flex; gap:8px; margin-top:20px;'>";
+  html += "<button class='btn-primary' onclick=\"agregar(" + p.id + ")\">Agregar al carrito</button>";
+  html += "</div>";
+
+  html += "</div></div>";
+
+  contenido.innerHTML = html;
+}
+
+function cambiarFoto(url) {
+  document.getElementById("fotoGrande").src = url;
+}
+
+function agregar(id) {
+  carrito.push({ id: id });
+  document.getElementById("contador").innerHTML = carrito.length;
+  mostrarAviso();
+}
+
+function mostrarAviso() {
+  var elAviso = document.getElementById("notificacion");
+  elAviso.classList.add("visible");
+
+  if (temporizadorNotificacion) {
+    clearTimeout(temporizadorNotificacion);
+  }
+
+  temporizadorNotificacion = setTimeout(function() {
+    elAviso.classList.remove("visible");
+  }, 3000);
+}
+
+function quitar(posicion) {
+  carrito.splice(posicion, 1);
+  mostrarVista();
+}
+
+function calcularTotal() {
+  var total = 0;
+  for (var i = 0; i < carrito.length; i++) {
+    var idBuscado = carrito[i].id;
+    var p = productos.find(function(item) { return item.id === idBuscado; });
+    if (p) {
+      var precioLimpio = parseFloat(String(p.precio).replace(/,/g, ''));
+      total += precioLimpio;
+    }
+  }
+  return total.toFixed(2);
+}
+
+function mostrarCarrito() {
+  if (carrito.length == 0) {
+    contenido.innerHTML = "<div class='caja' style='text-align:center; padding: 40px;'><p class='subtitulo'>Tu carrito está vacío</p><br><button class='btn-primary' onclick=\"irA('?tienda=bingo')\">Ver productos</button></div>";
+    return;
+  }
+
+  var html = "<h2>Tu Carrito</h2>";
+  for (var i = 0; i < carrito.length; i++) {
+    var idBuscado = carrito[i].id;
+    var p = productos.find(function(item) { return item.id === idBuscado; });
+    if (p) {
+      html += "<div class='caja' style='display:flex; justify-content:space-between; align-items:center;'>";
+      html += "<div><strong>" + p.nombre + "</strong><br><small class='subtitulo'>$" + p.precio + "</small></div>";
+      html += "<button class='btn-danger' onclick='quitar(" + i + ")'>Quitar</button>";
+      html += "</div>";
+    }
+  }
+  html += "<div class='caja' style='text-align:right;'>";
+  html += "<h3>Total: $" + calcularTotal() + "</h3><br>";
+  html += "<button class='btn-primary' onclick='procesarCompraDirecta()'>Proceder al pago</button>";
+  html += "</div>";
+
+  contenido.innerHTML = html;
+}
+
+function procesarCompraDirecta() {
+  var confirmar = confirm("¿Estás seguro de que quieres realizar esta compra?");
+  if (confirmar) {
+    alert("¡Gracias por tu compra!");
+    carrito = [];
+    irA('?tienda=bingo');
+  }
+}
+
+window.addEventListener("popstate", mostrarVista);
+
+if (!location.search.includes('tienda=bingo')) {
+    irA('?tienda=bingo&vista=hero');
+}
+mostrarVista();
+</script>
+
+</body>
+</html>
